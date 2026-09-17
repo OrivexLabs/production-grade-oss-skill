@@ -1,22 +1,25 @@
 {
-  "name": "isolated-example-project",
-  "actual_goal_met": true,
-  "expected_tree": true,
-  "implementation": "PASS",
-  "architecture": "PASS",
-  "quality": "PASS",
-  "testing": "PASS",
-  "security": "FAIL",
-  "privacy": "PASS",
-  "supply_chain": "PASS",
-  "ci_cd": "PASS",
-  "documentation": "PASS",
-  "runtime_verification": "NOT_RUN",
-  "regression": "PASS",
-  "adversarial": "NOT_RUN",
-  "evidence_fresh": true,
-  "confidence": "HIGH",
-  "critical_findings": 0,
-  "high_findings": 1,
-  "known_limitations": ["The actual runtime path was not exercised."]
+  "expected": "BLOCK",
+  "base": "allow.json",
+  "overrides": {
+    "evidence": {
+      "runtime": {
+        "status": "N/A",
+        "kind": "scope_analysis",
+        "source": "review://scope/runtime",
+        "method": "inspect whether a runnable CLI process exists",
+        "result": "No runtime observation was collected for the changed executable command.",
+        "reason": "Runtime is required for this executable CLI change; no permitted non-runnable exception applies.",
+        "freshness": "not_applicable"
+      }
+    },
+    "findings": [
+      {
+        "id": "missing-runtime",
+        "severity": "HIGH",
+        "blocking": true,
+        "description": "The changed command was not invoked with a fresh fixture."
+      }
+    ]
+  }
 }

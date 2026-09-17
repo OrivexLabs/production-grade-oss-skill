@@ -15,7 +15,7 @@ mkdir -p "$(dirname "$skill_dir")"
 cp -R production-grade-oss-skill "$skill_dir"
 ```
 
-If the destination already exists, inspect it first and choose a new destination or update it intentionally. Do not overwrite an unrelated Skill.
+If the destination already exists, inspect its Skill identity and commit first. Update only that destination when it is the same Skill; do not overwrite an unrelated Skill.
 
 ## Call
 
@@ -46,7 +46,20 @@ The Skill requires an observable goal contract and risk-appropriate evidence for
 - runtime verification using fresh inputs and independent observations;
 - regression and adversarial review before an important release decision.
 
-`ALLOW RELEASE` is reserved for a goal that is actually proven. Missing evidence, unresolved Critical/High findings, secret or privacy exposure, incompatible licensing, unexplained breaking changes, unexpected release state, or fabricated claims produce `BLOCK`.
+### Risk and project profiles
+
+Every decision records one risk profile and one project profile:
+
+- **Risk:** `LOW`, `MEDIUM`, or `HIGH`. The level controls the required lanes; it is based on impact and trust boundaries, not line count.
+- **Project:** `Web`, `API`, `CLI`, `Library`, or `AI Agent / Skill`. The profile adds the relevant runtime, compatibility, browser, protocol, filesystem, prompt, tool, or discovery checks.
+
+The evaluator does not mechanically require every lane for every project. Optional lanes may be `N/A` only with a specific scope reason. A required lane cannot use `N/A`, except for the explicit non-runnable Library Runtime exemption. A check that ran and failed remains `FAIL` or `BLOCKED`.
+
+### Evidence and gate semantics
+
+Each known lane has exactly one structured record. A `PASS` must include an attributable source, exact command/method, timezone-qualified timestamp, matching full commit/tree SHA, concrete result, confidence, and freshness. A README sentence, a workflow file, a green test claim, or a handwritten `PASS` is not evidence. See [references/evidence-schema.md](references/evidence-schema.md).
+
+`ALLOW RELEASE` is reserved for a goal that is actually proven. Missing or invalid evidence, unresolved Critical/High findings, secret or privacy exposure, incompatible licensing, unexplained breaking changes, unexpected release state, or fabricated claims produce `BLOCK`.
 
 The Skill explicitly rejects “能跑就算完成” / “it runs, so it is done”, meaningless engineering, and invented Stars, users, downloads, benchmarks, coverage, or test results.
 
@@ -56,6 +69,7 @@ The Skill explicitly rejects “能跑就算完成” / “it runs, so it is don
 SKILL.md                         Codex instructions and Release Gate
 examples/                         Reusable request and report examples
 checklists/                       Compact human-review checklist
+references/                       Evidence schema and risk/profile matrix
 evals/                            Gate fixtures, rubric, and dry-run harness
 scripts/check_skill.py            Structure, Markdown, and secret checks
 scripts/run_eval.py               Deterministic behavioral gate eval
@@ -73,6 +87,8 @@ python3 -m unittest discover -s tests -v
 ```
 
 These checks validate the package and the gate contract. They are not a substitute for applying the Skill to the target project's real runtime and release environment.
+
+The repository checks are deliberately bounded. The helper detects selected credential patterns, personal paths, literal IPv4 addresses, sensitive filenames, mutable workflow action references, and remote-shell patterns. It is **not** a complete secret scanner, dependency vulnerability database, license classifier, provenance verifier, or malware detector. Use dedicated tools and independent review for those claims.
 
 ## Contributing and security
 
