@@ -48,6 +48,7 @@ SECRET_PATTERNS = (
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
     re.compile(r"(?i)://[^/\s:@]+:[^@\s]+@"),
     re.compile(r"/(?:Users|home)/[A-Za-z0-9._-]+(?:/|$)"),
+    re.compile(r"(?<![\d.])(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}(?![\d.])"),
 )
 
 
@@ -108,7 +109,7 @@ def check_secrets(root: Path, failures: list[str]) -> None:
             continue
         for pattern in SECRET_PATTERNS:
             if pattern.search(content):
-                fail(f"possible secret or personal path in {path.relative_to(root)}", failures)
+                fail(f"possible secret, IP, or personal path in {path.relative_to(root)}", failures)
                 break
 
 
