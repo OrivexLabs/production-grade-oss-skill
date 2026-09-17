@@ -1,0 +1,22 @@
+{
+  "name": "isolated-example-project",
+  "actual_goal_met": true,
+  "expected_tree": true,
+  "implementation": "PASS",
+  "architecture": "PASS",
+  "quality": "PASS",
+  "testing": "PASS",
+  "security": "PASS",
+  "privacy": "PASS",
+  "supply_chain": "PASS",
+  "ci_cd": "PASS",
+  "documentation": "PASS",
+  "runtime_verification": "PASS",
+  "regression": "PASS",
+  "adversarial": "PASS",
+  "evidence_fresh": true,
+  "confidence": "HIGH",
+  "critical_findings": 0,
+  "high_findings": 0,
+  "known_limitations": []
+}

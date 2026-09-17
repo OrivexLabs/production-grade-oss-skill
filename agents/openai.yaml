@@ -1,0 +1,7 @@
+interface:
+  display_name: "Production Grade OSS"
+  short_description: "Run production-grade checks before shipping"
+  default_prompt: "Use $production-grade-oss to review this project against a production-grade OSS release gate."
+
+policy:
+  allow_implicit_invocation: true
