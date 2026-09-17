@@ -4,7 +4,7 @@ All notable changes to this Skill are documented here.
 
 The format follows the principles of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Version numbers follow Semantic Versioning where a versioned release is made.
 
-## [Unreleased]
+## [0.2.0] - 2026-09-17
 
 ### Added
 
